@@ -4,6 +4,6 @@
     grid-template-rows: 1fr 1fr 1fr;
     height: 300px;
     width: 300px;
-    margin: 0 auto;
-    border: 1px solid black;
+    margin: 5em auto 0 auto;
+    border: 0.2em solid #151515;
 }

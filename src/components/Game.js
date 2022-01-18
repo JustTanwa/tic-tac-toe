@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Grid from "./Grid";
 import calculateWinner from "./Winner";
+import "./Game.css";
 
 function Game() {
     // Set initial grid to be empty
@@ -27,10 +28,27 @@ function Game() {
         }
     }
 
+    const restartGame = () => {
+        setGrid(initialGrid);
+    }
+
+    const showWinner = () => {
+        if (winner) {
+            return <p className="winner">{winner}</p>
+        }
+    }
+
     return (
-        <>
+        <div>
             <Grid grid={grid} onClick={handleClick} />
-        </>
+            <div className="playerUI">
+                <p>Player 1: X</p>
+                <button className="restartBtn" onClick={() => restartGame()}> New game </button> 
+                <p>Player 2: O</p>
+            </div>
+
+            {showWinner()}
+        </div>
 
     )
 }

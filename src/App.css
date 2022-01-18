@@ -1,11 +1,4 @@
-.bg-gray {
-  background-color: rgb(85, 85, 85);
-}
-
-.vh-100 {
-  min-height: 100vh;
-}
-
-.vh-33 {
-  min-height: 33vh;
+.title {
+  background-color: #151515;
+  color: #B4A5A5;
 }

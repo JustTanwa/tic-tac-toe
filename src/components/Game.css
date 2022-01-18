@@ -1,0 +1,31 @@
+.playerUI {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1.5em;
+
+}
+.playerUI p {
+    display: inline-block;
+    margin: 0 1em;
+    text-align: center;
+    align-content: center;
+    font-size: 1.25em;
+    font-weight: bold;
+}
+.restartBtn {
+    display: inline-block;
+    background-color: #B4A5A5;
+    color: #301B3F;
+    font-weight: bold;
+    border-radius: 0.5em;
+    box-shadow: none;
+}
+
+@media screen and (max-width: 380px) {
+
+    .playerUI p {
+    font-size: 1em;
+    
+}
+}
