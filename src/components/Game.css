@@ -12,9 +12,12 @@
     display: inline-block;
     margin: 0 1em;
     text-align: center;
-    align-content: center;
     font-size: 1.25em;
     font-weight: bold;
+}
+
+.playerUI .score {
+    align-self: flex-end;
 }
 .restartBtn {
     display: inline-block;

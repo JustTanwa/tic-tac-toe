@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Grid from "./Grid";
 import calculateWinner from "./Winner";
 import "./Game.css";
@@ -34,19 +34,42 @@ function Game() {
         setGrid(initialGrid);
     }
 
+    const restartScore = () => {
+        SetXWinCount(0);
+        SetOWinCount(0);
+    }
+
     const showWinner = () => {
         if (winner) {
             return <p className="winner">{winner}</p>
         }
     }
 
+    const updateScore = () => {
+        if (winner === "X") {
+            SetXWinCount(prev => prev + 1);
+        } else if (winner === "O") {
+            SetOWinCount(prev => prev + 1);
+        }
+
+    }
+
+    useEffect(()=> {
+        updateScore()
+    },[winner])
+
     return (
         <div id="main">
             <Grid grid={grid} onClick={handleClick} />
             <div className="playerUI">
                 <p>Player 1: X</p>
-                <button className="restartBtn" onClick={() => restartGame()}> New game </button> 
+                <button className="restartBtn" onClick={() => restartGame()}> New game </button>
                 <p>Player 2: O</p>
+            </div>
+            <div className="playerUI">
+                <p className="score">{xWinCount}</p>
+                <button className="restartBtn" onClick={() => restartScore()}> Reset Score </button>
+                <p className="score">{oWinCount}</p>
             </div>
 
             {showWinner()}
