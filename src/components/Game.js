@@ -10,6 +10,7 @@ function Game() {
     const [player, setPlayer] = useState("1");
     const [xWinCount, SetXWinCount] = useState(0);
     const [oWinCount, SetOWinCount] = useState(0);
+    const [computer, setComputer] = useState(false);
     const winner = calculateWinner(grid);
 
     const handleClick = (i) => {
@@ -22,16 +23,38 @@ function Game() {
         if (player === "1") {
             curGrid[i] = "X";
             setGrid(curGrid);
-            setPlayer("2");
+            if (!computer) {setPlayer("2")};
         } else if (player === "2") {
             curGrid[i] = "O";
             setGrid(curGrid);
             setPlayer("1");
+        } 
+        
+        if (computer) {
+            setGrid(computerMove(curGrid));
         }
+    }
+
+    const randomIndex = () => {
+        return Math.floor(Math.random() * 9);
+    }
+
+    const computerMove = (curGrid) => {
+        let rand = randomIndex();
+        if (!curGrid[rand]) {
+            curGrid[rand] = "O";
+        } else {
+            if (!winner) {
+               computerMove(curGrid);
+            }
+        }
+        return curGrid;
+        
     }
 
     const restartGame = () => {
         setGrid(initialGrid);
+        setPlayer("1");
     }
 
     const restartScore = () => {
@@ -64,10 +87,10 @@ function Game() {
             <div className="playerUI">
                 <p>Player 1: X</p>
                 <button className="restartBtn" onClick={() => restartGame()}> New game </button>
-                <p>Player 2: O</p>
+                <p onClick={() => setComputer(!computer)}>{computer? "Computer" : "Player 2: O"}</p>
             </div>
             <div className="playerUI">
-                <p className="score">{xWinCount}</p>
+                <p className="score" >{xWinCount}</p>
                 <button className="restartBtn" onClick={() => restartScore()}> Reset Score </button>
                 <p className="score">{oWinCount}</p>
             </div>
