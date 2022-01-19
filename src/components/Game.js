@@ -8,6 +8,8 @@ function Game() {
     const initialGrid = Array(9).fill(null);
     const [grid, setGrid] = useState(initialGrid);
     const [player, setPlayer] = useState("1");
+    const [xWinCount, SetXWinCount] = useState(0);
+    const [oWinCount, SetOWinCount] = useState(0);
     const winner = calculateWinner(grid);
 
     const handleClick = (i) => {
@@ -39,7 +41,7 @@ function Game() {
     }
 
     return (
-        <div>
+        <div id="main">
             <Grid grid={grid} onClick={handleClick} />
             <div className="playerUI">
                 <p>Player 1: X</p>

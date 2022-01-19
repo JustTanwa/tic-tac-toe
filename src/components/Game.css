@@ -1,3 +1,6 @@
+#main {
+    position: relative;
+}
 .playerUI {
     display: flex;
     justify-content: center;
@@ -21,11 +24,36 @@
     border-radius: 0.5em;
     box-shadow: none;
 }
+.winner {
+    position: absolute;
+    display: block;
+    background-color: #B4A5A5;
+    font-size: 250px;
+    width: 300px;
+    height: 300px;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    line-height: 1em;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    animation: fadeIn 1s forwards;
+
+}
+
+@keyframes fadeIn {
+    0% { 
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
 
 @media screen and (max-width: 380px) {
 
     .playerUI p {
     font-size: 1em;
-    
-}
+    }
 }
