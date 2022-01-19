@@ -2,6 +2,8 @@
     background-color: #B4A5A5;
     border: 1px solid #301B3F;
     text-align: center;
+    width: 100%;
     font-size: 2.5em;
+    overflow: hidden;
   }
   
