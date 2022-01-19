@@ -23,13 +23,13 @@ function Game() {
         if (player === "1") {
             curGrid[i] = "X";
             setGrid(curGrid);
-            if (!computer) {setPlayer("2")};
+            if (!computer) { setPlayer("2") };
         } else if (player === "2") {
             curGrid[i] = "O";
             setGrid(curGrid);
             setPlayer("1");
-        } 
-        
+        }
+
         if (computer) {
             setGrid(computerMove(curGrid));
         }
@@ -41,15 +41,15 @@ function Game() {
 
     const computerMove = (curGrid) => {
         let rand = randomIndex();
-        if (!curGrid[rand]) {
+        if (!curGrid[4]) {
+            curGrid[4] = "O";
+        }else if (!curGrid[rand]) {
             curGrid[rand] = "O";
-        } else {
-            if (!winner) {
-               computerMove(curGrid);
-            }
+        } else if (!winner && curGrid.includes(null)) {
+            computerMove(curGrid);
         }
         return curGrid;
-        
+
     }
 
     const restartGame = () => {
@@ -77,9 +77,9 @@ function Game() {
 
     }
 
-    useEffect(()=> {
+    useEffect(() => {
         updateScore()
-    },[winner])
+    }, [winner])
 
     return (
         <div id="main">
@@ -87,7 +87,7 @@ function Game() {
             <div className="playerUI">
                 <p>Player 1: X</p>
                 <button className="restartBtn" onClick={() => restartGame()}> New game </button>
-                <p onClick={() => setComputer(!computer)}>{computer? "Computer" : "Player 2: O"}</p>
+                <p onClick={() => setComputer(!computer)}>{computer ? "Computer" : "Player 2: O"}</p>
             </div>
             <div className="playerUI">
                 <p className="score" >{xWinCount}</p>
