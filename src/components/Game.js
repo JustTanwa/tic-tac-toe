@@ -31,7 +31,7 @@ function Game() {
         }
 
         if (computer) {
-            setGrid(computerMove(curGrid));
+            setGrid(computerMoveHard(curGrid));
         }
     }
 
@@ -49,6 +49,67 @@ function Game() {
             computerMove(curGrid);
         }
         return curGrid;
+
+    }
+
+    const computerMoveHard = (curGrid) => {
+        // implementing Minimax algorithm for choosing the best move.
+        let bestScore = -Infinity;
+        let bestMove;
+        // check all squares for available spots
+        for (let i = 0; i < 9; i++) {
+            if (curGrid[i] === null) {
+                curGrid[i] = "X";
+                // make move for ai then call minimax to get score
+                let score = minimax(curGrid, 0, false)
+                // undo move 
+                curGrid[i] = null;
+                bestScore = Math.max(score, bestScore);
+                bestMove = i;
+            }
+        }
+
+        curGrid[bestMove] = "O";
+
+        return curGrid;
+    }
+
+    let scores = {
+        X: 10,
+        O: -10,
+        tie: 0
+    }
+
+    const minimax = (board, depth, isMaximisingPlayer) => {
+        let result = calculateWinner(board);
+        if (result) {
+            let score = scores[result];
+            return score;
+        }
+
+        if (isMaximisingPlayer) {
+            let bestScore = -Infinity
+            for (let i = 0; i < 9; i++) {
+                if (board[i] === null) {
+                    board[i] = "X";
+                    let score = minimax(board, depth + 1, false)
+                    board[i] = null;
+                    bestScore = Math.max(score, bestScore);
+                }
+            }
+            return bestScore;
+        } else {
+            let bestScore = Infinity
+            for (let i = 0; i < 9; i++) {
+                if (board[i] === null) {
+                    board[i] = "O";
+                    let score = minimax(board, depth + 1, true)
+                    board[i] = null;
+                    bestScore = Math.min(score, bestScore);
+                }
+            }
+            return bestScore;
+        }
 
     }
 

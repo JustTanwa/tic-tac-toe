@@ -19,6 +19,7 @@ function calculateWinner(grid) {
             return grid[a];
         }
     }
+    if (!grid.includes(null)) return "tie";
     return null;
 }
 
