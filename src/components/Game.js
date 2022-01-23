@@ -10,7 +10,7 @@ function Game() {
     const [player, setPlayer] = useState("1");
     const [xWinCount, SetXWinCount] = useState(0);
     const [oWinCount, SetOWinCount] = useState(0);
-    const [computer, setComputer] = useState(false);
+    const [computer, setComputer] = useState(true);
     const winner = calculateWinner(grid);
 
     const handleClick = (i) => {
@@ -54,18 +54,20 @@ function Game() {
 
     const computerMoveHard = (curGrid) => {
         // implementing Minimax algorithm for choosing the best move.
-        let bestScore = -Infinity;
+        let bestScore = Infinity;
         let bestMove;
         // check all squares for available spots
         for (let i = 0; i < 9; i++) {
             if (curGrid[i] === null) {
-                curGrid[i] = "X";
+                curGrid[i] = "O";
                 // make move for ai then call minimax to get score
-                let score = minimax(curGrid, 0, false)
+                let score = minimax(curGrid, 0, true)
                 // undo move 
                 curGrid[i] = null;
-                bestScore = Math.max(score, bestScore);
-                bestMove = i;
+                if (score < bestScore) {
+                    bestScore = score;
+                    bestMove = i
+                }
             }
         }
 
