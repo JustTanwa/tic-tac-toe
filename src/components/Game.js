@@ -11,6 +11,7 @@ function Game() {
     const [xWinCount, SetXWinCount] = useState(0);
     const [oWinCount, SetOWinCount] = useState(0);
     const [computer, setComputer] = useState(true);
+    const [difficultyHard, setDifficultyHard] = useState(false);
     const winner = calculateWinner(grid);
 
     const handleClick = (i) => {
@@ -30,8 +31,10 @@ function Game() {
             setPlayer("1");
         }
 
-        if (computer) {
+        if (computer && difficultyHard) {
             setGrid(computerMoveHard(curGrid));
+        } else if (computer) {
+            setGrid(computerMove(curGrid));
         }
     }
 
@@ -83,12 +86,14 @@ function Game() {
     }
 
     const minimax = (board, depth, isMaximisingPlayer) => {
+        // check if terminal state of the board and return value if winner or tie
         let result = calculateWinner(board);
         if (result) {
             let score = scores[result];
             return score;
         }
-
+        // if not terminal state, for maximising player, go through all null spaces
+        // and recursively call minimax until a value is found for each combo
         if (isMaximisingPlayer) {
             let bestScore = -Infinity
             for (let i = 0; i < 9; i++) {
@@ -140,6 +145,13 @@ function Game() {
 
     }
 
+    const togglePlayer = () => {
+        // check if game start, if game start then cannot change to AI
+        if (!grid.every(sq => sq === null)) return
+        if (computer && !difficultyHard) setComputer(!computer)
+        
+    }
+
     useEffect(() => {
         updateScore()
     }, [winner])
@@ -150,7 +162,7 @@ function Game() {
             <div className="playerUI">
                 <p>Player 1: X</p>
                 <button className="restartBtn" onClick={() => restartGame()}> New game </button>
-                <p onClick={() => setComputer(!computer)}>{computer ? "Computer" : "Player 2: O"}</p>
+                <p>{computer ? difficultyHard ? "AI Lvl:Hard" : "AI Lvl:Easy" : "Player 2: O"}<span className="difficulty" onClick={() => togglePlayer()}>&#8644;</span></p>
             </div>
             <div className="playerUI">
                 <p className="score" >{xWinCount}</p>

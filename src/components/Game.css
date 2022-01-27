@@ -7,8 +7,16 @@
     align-items: center;
     margin-top: 1.5em;
 
+}.difficulty {
+    position: absolute;
+    right: -1.25em;
+    top: 50%;
+    transform: translateY(-55%);
+    font-size: 1.5em;
+    font-weight: bolder;
 }
 .playerUI p {
+    position: relative;
     display: inline-block;
     margin: 0 1em;
     text-align: center;
