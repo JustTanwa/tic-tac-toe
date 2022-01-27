@@ -148,7 +148,14 @@ function Game() {
     const togglePlayer = () => {
         // check if game start, if game start then cannot change to AI
         if (!grid.every(sq => sq === null)) return
-        if (computer && !difficultyHard) setComputer(!computer)
+        if (computer && !difficultyHard) {
+            setDifficultyHard(true);
+        } else if (computer && difficultyHard) {
+            setComputer(!computer)
+        } else {
+            setComputer(!computer);
+            setDifficultyHard(false)
+        }
         
     }
 
