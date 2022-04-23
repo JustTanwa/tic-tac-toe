@@ -18,9 +18,8 @@ function Game() {
 	const [disable, setDisable] = useState(false);
 
 	const handleClick = (i) => {
-        if (!computer) setDisable(false);
 		if (disable) return;
-		setDisable(true);
+		if (computer) setDisable(true);
 		// using spread syntax to copy the current grid
 		const curGrid = [...grid];
 		// return if winner already determine or grid already has element
@@ -198,10 +197,14 @@ function Game() {
 				</button>
 			</div>
 			<div className='controls'>
-				<div className='playerone'>Player(X)</div>
+				<div className='playerone'>Player X</div>
 				<div className='tie'>Tie</div>
 				<div className='playertwo'>
-					{computer ? 'Computer(O)' : 'Player(O)'}
+					{computer && !difficultyHard
+						? 'AI (Easy)'
+						: computer && difficultyHard
+						? 'AI (Hard)'
+						: 'Player O'}
 				</div>
 				<div className='playerOneScore'>{xWinCount}</div>
 				<div className='tieScore'>{draw}</div>
