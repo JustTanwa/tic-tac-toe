@@ -17,6 +17,8 @@ The web application is mobile responsive, support up to 360px wide screen and ab
 
 Video to be attached to demonstrate.
 
+https://user-images.githubusercontent.com/84579000/164947476-a563ac14-a949-4247-947a-8e3a896568ad.mp4
+
 ## Features
 
 Currently, the project is at a finished staged with the following features:
