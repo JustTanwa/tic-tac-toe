@@ -4,7 +4,7 @@ import "./GridSquare.css";
 function GridSquare({value, onClick}) {
 
     return (
-        <button className="square" onClick={onClick}>{value}</button>
+        <button className={`square ${value ? value: ""}`} onClick={onClick}><span>{value}</span></button>
     )
 }
 
