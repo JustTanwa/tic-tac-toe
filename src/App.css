@@ -6,4 +6,7 @@
 .title {
   background-color: #75B79E;
   color: #EEF9BF;
+  text-align: center;
+  margin: 0;
+  padding: 1em 0;
 }

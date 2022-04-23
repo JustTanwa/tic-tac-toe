@@ -1,10 +1,10 @@
 import React from "react";
 import "./GridSquare.css";
 
-function GridSquare({value, onClick}) {
+function GridSquare({value, onClick, disabled}) {
 
     return (
-        <button className={`square ${value ? value: ""}`} onClick={onClick}><span>{value}</span></button>
+        <button className={`square ${value ? value: ""}`} onClick={onClick} disabled={disabled}><span>{value}</span></button>
     )
 }
 

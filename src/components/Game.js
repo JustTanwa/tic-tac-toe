@@ -15,12 +15,19 @@ function Game() {
 	const [computer, setComputer] = useState(true);
 	const [difficultyHard, setDifficultyHard] = useState(false);
 	const winner = calculateWinner(grid);
+	const [disable, setDisable] = useState(false);
 
 	const handleClick = (i) => {
+        if (!computer) setDisable(false);
+		if (disable) return;
+		setDisable(true);
 		// using spread syntax to copy the current grid
 		const curGrid = [...grid];
 		// return if winner already determine or grid already has element
-		if (winner || curGrid[i]) return;
+		if (winner || curGrid[i]) {
+			setDisable(false);
+			return;
+		}
 
 		// determine player
 		if (player === '1') {
@@ -35,10 +42,18 @@ function Game() {
 			setPlayer('1');
 		}
 
-		if (computer && difficultyHard) {
-			setGrid(computerMoveHard(curGrid));
-		} else if (computer) {
-			setGrid(computerMove(curGrid));
+		if (!calculateWinner(curGrid)) {
+			if (computer && difficultyHard) {
+				setTimeout(() => {
+					setGrid(computerMoveHard([...curGrid]));
+					setDisable(false);
+				}, 700);
+			} else if (computer) {
+				setTimeout(() => {
+					setGrid(computerMove([...curGrid]));
+					setDisable(false);
+				}, 700);
+			}
 		}
 	};
 
@@ -125,27 +140,16 @@ function Game() {
 	const restartGame = () => {
 		setGrid(initialGrid);
 		setPlayer('1');
+		setDisable(false);
 	};
 
 	const showWinner = () => {
 		if (winner) {
 			return (
 				<p className={`winner ${winner}`}>
-					{winner === 'X' ? 'X wins' : winner === 'O' ? 'O wins' : "It's a Tie"}
+					{winner === 'X' ? 'X wins' : winner === 'O' ? 'O wins' : "It's a tie"}
 				</p>
 			);
-		}
-	};
-
-	const updateScore = () => {
-		if (winner === 'X') {
-			setXWinCount((prev) => prev + 1);
-		} else if (winner === 'O' && !computer) {
-			setOWinCount((prev) => prev + 1);
-		} else if (winner === 'O' && computer) {
-			setCompWinCount((prev) => prev + 1);
-		} else if (winner === 'tie') {
-			setDraw((prev) => prev + 1);
 		}
 	};
 
@@ -163,12 +167,23 @@ function Game() {
 	};
 
 	useEffect(() => {
+		const updateScore = () => {
+			if (winner === 'X') {
+				setXWinCount((prev) => prev + 1);
+			} else if (winner === 'O' && !computer) {
+				setOWinCount((prev) => prev + 1);
+			} else if (winner === 'O' && computer) {
+				setCompWinCount((prev) => prev + 1);
+			} else if (winner === 'tie') {
+				setDraw((prev) => prev + 1);
+			}
+		};
 		updateScore();
-	}, [winner]);
+	}, [winner, computer]);
 
 	return (
 		<div id='main'>
-			<Grid grid={grid} onClick={handleClick} />
+			<Grid grid={grid} onClick={handleClick} disabled={disable} />
 			{showWinner()}
 			<div className='buttons'>
 				<button className='newgame' onClick={restartGame}>
