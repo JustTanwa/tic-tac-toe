@@ -2,16 +2,17 @@ import React, { useState, useEffect } from 'react';
 import Grid from './Grid';
 import calculateWinner from './Winner';
 import './Game.css';
+import useLocalStorage from '../hooks/useLocalStorage';
 
 function Game() {
 	// Set initial grid to be empty
 	const initialGrid = Array(9).fill(null);
 	const [grid, setGrid] = useState(initialGrid);
 	const [player, setPlayer] = useState('1');
-	const [xWinCount, setXWinCount] = useState(0);
-	const [oWinCount, setOWinCount] = useState(0);
-	const [compWinCount, setCompWinCount] = useState(0);
-	const [draw, setDraw] = useState(0);
+	const [xWinCount, setXWinCount] = useLocalStorage('xscore', 0);
+	const [oWinCount, setOWinCount] = useLocalStorage('oscore', 0);
+	const [compWinCount, setCompWinCount] = useLocalStorage('aiscore', 0);
+	const [draw, setDraw] = useLocalStorage('tie', 0);
 	const [computer, setComputer] = useState(true);
 	const [difficultyHard, setDifficultyHard] = useState(false);
 	const winner = calculateWinner(grid);
@@ -168,7 +169,8 @@ function Game() {
 	useEffect(() => {
 		const updateScore = () => {
 			if (winner === 'X') {
-				setXWinCount((prev) => prev + 1);
+				let newXwinCount = xWinCount + 1;
+				setXWinCount(newXwinCount);
 			} else if (winner === 'O' && !computer) {
 				setOWinCount((prev) => prev + 1);
 			} else if (winner === 'O' && computer) {
