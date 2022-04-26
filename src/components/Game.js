@@ -169,8 +169,7 @@ function Game() {
 	useEffect(() => {
 		const updateScore = () => {
 			if (winner === 'X') {
-				let newXwinCount = xWinCount + 1;
-				setXWinCount(newXwinCount);
+				setXWinCount((prev) => prev + 1);
 			} else if (winner === 'O' && !computer) {
 				setOWinCount((prev) => prev + 1);
 			} else if (winner === 'O' && computer) {
@@ -180,7 +179,7 @@ function Game() {
 			}
 		};
 		updateScore();
-	}, [winner, computer]);
+	}, [winner]);
 
 	return (
 		<div id='main'>
